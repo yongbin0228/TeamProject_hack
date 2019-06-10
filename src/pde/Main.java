@@ -33,7 +33,7 @@ public class Main extends JFrame {
         contentPane.add(lb1);
         JLabel lb2 = new JLabel();
         lb2.setBounds(20, 60, 184, 30);
-        lb2.setText("레     벨 : " + Info.level + "Lv");
+        lb2.setText("레     벨 : MAX");
         contentPane.add(lb2);
         JLabel lb3 = new JLabel();
         lb3.setBounds(20, 90, 184, 30);
@@ -71,14 +71,14 @@ public class Main extends JFrame {
         // 버튼2 생성
         JButton btn2 = new JButton("경험치 ↑");
         //프레임에 버튼2 추가
-        btn2.setEnabled(false);
         contentPane.add(btn2);
+        btn2.setEnabled(false);
         // 버튼3 생성
         JButton btn3 = new JButton("상     점");
         //프레임에 버튼3 추가
         contentPane.add(btn3);
         // 버튼4 생성
-        JButton btn4 = new JButton("캐쉬 충전");
+        JButton btn4 = new JButton("캐     쉬");
         //프레임에 버튼4 추가
         contentPane.add(btn4);
         // 버튼5생성
@@ -89,6 +89,7 @@ public class Main extends JFrame {
         JButton btn6 = new JButton("스킨 변경");
         //프레임에 버튼6추가
         contentPane.add(btn6);
+
         //버튼 위치설정
         btn1.setBounds(27, 231, 92, 30);
         btn2.setBounds(146, 231, 92, 30);
@@ -98,43 +99,41 @@ public class Main extends JFrame {
         btn6.setBounds(265, 271, 92, 30);
 
         //버튼 클릭시 이벤트 설정
-        btn1.addActionListener(event -> {
-            Info.moeny_up();
-            lb4.setText("    돈      : " + Info.money + " PD");
-            lb5.setText("캐     쉬 : " + Info.cash + " CASH");
+        btn1.addActionListener(event -> { // 돈 ↑ 버튼 클릭시
+            Info.moeny_up(); //돈 증가
+            lb4.setText("    돈      : " + Info.money + " PD"); //메세지 변경
+            lb5.setText("캐     쉬 : " + Info.cash + " CASH"); //메세지 변경
         });
-        btn2.addActionListener(event -> {
-            Info.exp_up();
-            lb5.setText("캐     쉬 : " + Info.cash + " CASH");
-            if (Info.level == 100) {
-                lb2.setText("레     벨 : MAX ");
-                lb3.setText("경 험 치 : " + Info.exp + "/" + Info.max_exp);
+        btn2.addActionListener(event -> { // 경험치 ↑ 버튼 클릭시
+            Info.exp_up(); //경험치 증가
+            lb5.setText("캐     쉬 : " + Info.cash + " CASH"); //메세지 변경
+            if (Info.level == 100) {//만약 100레벨 달성시
+                lb2.setText("레     벨 : MAX "); //메세지 변경
+                lb3.setText("경 험 치 : " + Info.exp + "/" + Info.max_exp); //메세지 변경
                 Info.money += 1000;
-                lb4.setText("    돈      : " + Info.money + " PD");
-                JOptionPane.showMessageDialog(null, "100 LEVEL 달성!\n돈 1000원 획득", "레벨 업", JOptionPane.INFORMATION_MESSAGE);
-                JOptionPane.showMessageDialog(null, "100레벨이 되어 경험치 ↑ 버튼이 비활성화 됩니다", "레벨 업", JOptionPane.INFORMATION_MESSAGE);
-                btn2.setEnabled(false);
+                lb4.setText("    돈      : " + Info.money + " PD"); //메세지 변경
+                JOptionPane.showMessageDialog(null, "100 LEVEL 달성!\n돈 1000원 획득", "레벨 업", JOptionPane.INFORMATION_MESSAGE); //메시지 출력
+                JOptionPane.showMessageDialog(null, "100레벨이 되어 경험치 ↑ 버튼이 비활성화 됩니다", "레벨 업", JOptionPane.INFORMATION_MESSAGE); //메시지 출력
+                btn2.setEnabled(false); //메세지 변경
             } else {
-                lb2.setText("레     벨 : " + Info.level + "Lv");
-                lb3.setText("경 험 치 : " + Info.exp + "/" + Info.max_exp);
-                lb4.setText("    돈      : " + Info.money + " PD");
+                lb2.setText("레     벨 : " + Info.level + "Lv"); //메세지 변경
+                lb3.setText("경 험 치 : " + Info.exp + "/" + Info.max_exp); //메세지 변경
+                lb4.setText("    돈      : " + Info.money + " PD"); //메세지 변경
             }
         });
-        btn3.addActionListener(event -> {
+        btn3.addActionListener(event -> { // 상점 버튼 클릭시
             new Shop(lb2, lb3, lb4, lb5, lb7, btn2);
         });
-        btn4.addActionListener(event -> {
-            Info.cash_add();
-            lb5.setText("캐     쉬 : " + Info.cash + " CASH");
-            JOptionPane.showMessageDialog(null, Info.input + "CASH가 충전되었습니다", "캐쉬 충전", JOptionPane.INFORMATION_MESSAGE);
+        btn4.addActionListener(event -> { // 캐쉬 버튼 클릭시
+            new Cash(lb5);
         });
-        btn5.addActionListener(event -> {
+        btn5.addActionListener(event -> { // 이름 변경 버튼 클릭시
             Info.name_change();
-            lb1.setText("이     름 : " + Info.name);
-            JOptionPane.showMessageDialog(null, Info.name + "으로 이름이 변경되었습니다", "이름 변경", JOptionPane.INFORMATION_MESSAGE);
+            lb1.setText("이     름 : " + Info.name); //메세지 변경
+            JOptionPane.showMessageDialog(null, Info.name + "으로 이름이 변경되었습니다", "이름 변경", JOptionPane.INFORMATION_MESSAGE); //메시지 출력
 
         });
-        btn6.addActionListener(event -> {
+        btn6.addActionListener(event -> { // 스킨 변경 버튼 클릭 시
             new Skin(imgLb, lb6, lb7);
         });
         //프레임 크기 설정
@@ -145,6 +144,9 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
+        for(int i=0; i<Cash.code.length; i++){
+            Cash.code[i][1] = "CODE"+i;
+        }
         new Main();
     }
 }
